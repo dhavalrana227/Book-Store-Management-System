@@ -1,0 +1,185 @@
+<!-- Navbar-->
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="./css/loginStyles.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row py-5 mt-7 align-items-center">
+            <!-- For Demo Purpose -->
+            <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+                <img src="./images/register.png" alt="" class="img-fluid mb-3 p-1 d-none d-md-block">
+                <h1 style="text-align: center;">Create an Account</h1>
+            </div>
+
+            <!-- Registeration Form -->
+            <div class="col-md-7 col-lg-6 ml-auto">
+                <div class="row">
+
+                    <!-- First Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <input id="custName" type="text" name="custName" placeholder="Name"
+                            class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group col-lg-6 mb-4">
+
+                        <input id="custEmail" type="email" name="custEmail" placeholder="Email Address"
+                            class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Mobile -->
+                    <div class="input-group col-lg-6 mb-4">
+
+                        <input id="custPhone" type="tel" name="custPhone" placeholder="Mobile"
+                            class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group col-lg-6 mb-4">
+
+                        <textarea id="custAddress" rows="3" cols="20" name="custAddress" placeholder="Address"
+                            class="form-control bg-white border-left-0 border-md"></textarea>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-6 mb-4">
+
+                        <input id="custPassword" type="password" name="custPassword" placeholder="Password"
+                            class="form-control bg-white border-left-0 border-md">
+                    </div>
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" onclick="showHidePassword()">
+                            <label class="form-check-label">
+                                Show Password
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="ms-1 mb-3" style="font-size: 1.2rem; color: red; display: none;" id="errorMsg">
+                        Hello There is
+                        an error
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button class="btn btn-dark btn-block p-2" onclick="registerUser()">
+                            <span class="font-weight-bold">Create your account</span>
+                        </button>
+                    </div>
+
+                    <!-- Divider Text -->
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Already Registered? <a href="index.html"
+                                class="text-primary ml-2">Login</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        var num = "/^[0-9]{10}$/";
+        var eml = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/";
+        var psw = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/";
+
+        document.getElementById("custName").onfocus = function () {
+            hideErrorMsg();
+        };
+        document.getElementById("custEmail").onfocus = function () {
+            hideErrorMsg();
+        };
+        document.getElementById("custPhone").onfocus = function () {
+            hideErrorMsg();
+        };
+        document.getElementById("custAddress").onfocus = function () {
+            hideErrorMsg();
+        };
+        document.getElementById("custPassword").onfocus = function () {
+            hideErrorMsg();
+
+        };
+
+        function hideErrorMsg() {
+            document.getElementById("errorMsg").style.display = "none";
+        }
+
+        function showErrorMsg(err) {
+            document.getElementById("errorMsg").style.display = "block";
+            document.getElementById("errorMsg").innerHTML = err;
+        }
+
+        function registerUser() {
+
+            var obj;
+            if (document.getElementById("custName").value == "" || document.getElementById("custEmail").value == ""
+                || document.getElementById("custPassword").value == "" || document.getElementById("custAddress").value == ""
+                || document.getElementById("custPhone").value == "") {
+
+                showErrorMsg("Please Provide Inputs!");
+            }
+            else {
+                var data = "custName=" + document.getElementById("custName").value + "&custEmail=" + document.getElementById("custEmail").value
+                    + "&custPassword=" + document.getElementById("custPassword").value + "&custAddress=" + document.getElementById("custAddress").value
+                    + "&custPhone=" + document.getElementById("custPhone").value;
+
+                console.log(data);
+                var XRH = new XMLHttpRequest();
+
+                XRH.onload = function () {
+                    console.log(this.responseText);
+                    obj = JSON.parse(this.responseText);
+
+                    if (obj.status) {
+                        location.replace("test.php");
+                    }
+                    else {
+                        showErrorMsg(obj.msg)
+                    }
+                }
+
+                XRH.open('POST', './php/registerUser.php');
+                XRH.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                XRH.send(data);
+            }
+        }
+        function showHidePassword() {
+            var x = document.getElementById("custPassword");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>
